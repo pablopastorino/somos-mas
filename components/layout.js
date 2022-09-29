@@ -1,14 +1,14 @@
+import Header from './header'
 import Footer from './footer'
-import Navbar from './header'
 
 const Layout = ({ children }) => {
-	return (
-		<>
-			<Navbar />
-			<main className='flex-1'>{children}</main>
-			<Footer />
-		</>
-	)
+  return (
+    <>
+      <Header />
+      <main className='min-h-max flex items-center justify-center'>{children}</main>
+      <Footer />
+    </>
+  )
 }
 
 export default Layout

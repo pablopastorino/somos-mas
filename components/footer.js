@@ -12,7 +12,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='sm:h-36 flex items-center justify-center md:border-b-4 border-black'>
-        <Navbar hidden={false} buttons={false} center={true} />
+        {/* <Navbar hidden={false} buttons={false} center={true} /> */}
       </div>
 
       <div>
