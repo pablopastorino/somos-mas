@@ -1,5 +1,5 @@
 import dbConnect from '../../../lib/mongodb'
-import Activity from '../../../models/Activity'
+import Testimonial from '../../../models/Testimonial'
 
 export default async function handler(req, res) {
   const {
@@ -12,11 +12,11 @@ export default async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const activity = await Activity.findById(id)
-        if (!activity) {
+        const testimonial = await Testimonial.findById(id)
+        if (!testimonial) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({ success: true, data: activity })
+        res.status(200).json({ success: true, data: testimonial })
       } catch (error) {
         res.status(400).json({ success: false })
       }
@@ -24,21 +24,21 @@ export default async function handler(req, res) {
 
     case 'PUT':
       try {
-        const { error } = Activity.validate(req.body)
+        const { error } = Testimonial.validate(req.body)
         if (error)
           return res.status(422).json({
             error: { path: error.details[0].path[0], message: error.details[0].message },
             success: false
           })
 
-        const activity = await Activity.findByIdAndUpdate(id, req.body, {
+        const testimonial = await Testimonial.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
         })
-        if (!activity) {
+        if (!testimonial) {
           return res.status(404).json({ success: false })
         }
-        res.status(200).json({ success: true, data: activity })
+        res.status(200).json({ success: true, data: testimonial })
       } catch (error) {
         res.status(400).json({ success: false })
       }
@@ -46,8 +46,8 @@ export default async function handler(req, res) {
 
     case 'DELETE':
       try {
-        const deletedActivity = await Activity.deleteOne({ _id: id })
-        if (!deletedActivity) {
+        const testimonial = await Testimonial.deleteOne({ _id: id })
+        if (!testimonial) {
           return res.status(400).json({ success: false })
         }
         res.status(204).json({ success: true, data: {} })
