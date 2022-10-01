@@ -38,8 +38,15 @@ export default function Signup() {
   } = useForm({
     resolver: yupResolver(schema)
   })
-  const onSubmit = data => {
-    console.log(data)
+  const onSubmit = async data => {
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    const user = await response.json()
+    console.log(user)
     reset()
   }
 
@@ -53,7 +60,7 @@ export default function Signup() {
       <div className='flex flex-wrap -mx-3 mb-6'>
         <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-first-name'
           >
             Nombre
@@ -68,7 +75,7 @@ export default function Signup() {
         </div>
         <div className='w-full md:w-1/2 px-3'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-last-name'
           >
             Apellido
@@ -85,7 +92,7 @@ export default function Signup() {
       <div className='flex flex-wrap -mx-3 mb-6'>
         <div className='w-full px-3'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-email'
           >
             Email
@@ -103,7 +110,7 @@ export default function Signup() {
       <div className='flex flex-wrap -mx-3 md:mb-6'>
         <div className='w-full md:w-1/3 px-3 mb-6 md:mb-0'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-city'
           >
             Ciudad
@@ -118,7 +125,7 @@ export default function Signup() {
         </div>
         <div className='w-full md:w-1/3 px-3 mb-6 md:mb-0'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-state'
           >
             Estado
@@ -133,7 +140,7 @@ export default function Signup() {
         </div>
         <div className='w-full md:w-1/3 px-3 mb-6 md:mb-0'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-zip'
           >
             Código Postal
@@ -150,7 +157,7 @@ export default function Signup() {
       <div className='flex flex-wrap -mx-3 mb-6'>
         <div className='w-full px-3'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-password'
           >
             Contraseña
@@ -167,7 +174,7 @@ export default function Signup() {
       <div className='flex flex-wrap -mx-3 mb-6'>
         <div className='w-full px-3'>
           <label
-            className='block uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='block tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-confirm'
           >
             Confirmar Contraseña
@@ -190,7 +197,7 @@ export default function Signup() {
             {...register('terms')}
           />
           <label
-            className='uppercase tracking-wide text-gray-900 text-sm font-bold mb-2'
+            className='tracking-wide text-gray-900 text-sm font-medium mb-2'
             htmlFor='grid-terms'
           >
             Aceptar Términos y Condiciones
@@ -200,7 +207,7 @@ export default function Signup() {
       </div>
       <div className='flex items-center justify-center'>
         <button
-          className='shadow bg-red-600 hover:bg-red-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded-full'
+          className='shadow bg-red-600 hover:bg-red-500 focus:shadow-outline focus:outline-none text-white font-medium py-2 px-4 rounded-full'
           type='submit'
         >
           Registrarse
