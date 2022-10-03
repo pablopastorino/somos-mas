@@ -138,8 +138,6 @@ export async function getStaticProps() {
   const { data: testimonials } = await testimonialsResponse.json()
   const { data: news } = await newsResponse.json()
 
-  console.log(news)
-
   return {
     props: {
       members,
