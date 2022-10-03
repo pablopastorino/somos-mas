@@ -31,14 +31,14 @@ const Navbar = ({ hidden = true, buttons = true, center = false }) => {
           <>
             <li className='h-12 lg:h-auto'>
               <Link href='login'>
-                <a className='mx-4 lg:rounded-full lg:mx-2 lg:px-4 lg:py-1 lg:border lg:border-black lg:whitespace-nowrap'>
+                <a className='mx-4 lg:rounded-full lg:mx-2 lg:px-4 lg:py-2 lg:border lg:border-black lg:whitespace-nowrap'>
                   Log in
                 </a>
               </Link>
             </li>
             <li className='h-12 lg:h-auto'>
               <Link href='signup' as='registrate'>
-                <a className='mx-4 lg:rounded-full lg:mx-2 lg:px-4 lg:py-1 lg:bg-red-600 lg:text-white'>
+                <a className='mx-4 lg:rounded-full lg:mx-2 lg:px-4 lg:py-2 lg:bg-red-600 hover:bg-red-500 lg:text-white'>
                   Registrate
                 </a>
               </Link>
