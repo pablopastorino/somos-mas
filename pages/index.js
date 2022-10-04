@@ -19,7 +19,7 @@ export default function Home({ members, testimonials, news }) {
         <div className='flex flex-wrap px-2 mb-6'>
           <div className='w-full grid grid-cols-2 md:grid-cols-4 gap-4'>
             <div className='col-span-2 md:h-96 flex flex-col justify-center'>
-              <h2 className='text-3xl font-bold'>Hola Bienvenidxs</h2>
+              <h2 className='text-3xl py-2 font-bold'>Hola Bienvenidxs</h2>
               <p className='sm:pr-8'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sit et molestias
                 consectetur perferendis voluptates corporis. Impedit soluta porro corporis accusamus

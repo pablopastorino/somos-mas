@@ -1,5 +1,7 @@
-import dbConnect from '../../lib/mongodb'
-import User from '../../models/User'
+import dbConnect from '../../../lib/mongodb'
+import User from '../../../models/User'
+import { createHash } from '../../../utils/bcrypt'
+import { createToken } from '../../../utils/token'
 
 export default async function handler(req, res) {
   const { method } = req
@@ -17,8 +19,13 @@ export default async function handler(req, res) {
       break
     case 'POST':
       try {
-        const user = await User.create(req.body)
-        res.status(201).json({ success: true, data: user })
+        const user = await User.create({ ...req.body, password: createHash(req.body.password) })
+        const token = createToken({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          emai: user.email
+        })
+        res.status(201).json({ success: true, data: token })
       } catch (error) {
         res.status(400).json({ success: false, error })
       }

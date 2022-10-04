@@ -1,6 +1,8 @@
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { AuthContext } from '../context/AuthContext'
 
 const schema = yup
   .object()
@@ -14,6 +16,8 @@ const schema = yup
   .required()
 
 export default function Login() {
+  const { state, dispatch } = useContext(AuthContext)
+
   const {
     register,
     reset,
@@ -23,14 +27,19 @@ export default function Login() {
     resolver: yupResolver(schema)
   })
   const onSubmit = async data => {
-    const response = await fetch('/api/users', {
+    const response = await fetch('/api/auth', {
       method: 'POST',
       mode: 'cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     })
-    const user = await response.json()
-    console.log(user)
+    const { success, data: token } = await response.json()
+
+    if (success) {
+      localStorage.setItem('user', token)
+      dispatch({ type: 'LOGIN', payload: token })
+    }
+
     reset()
   }
 
