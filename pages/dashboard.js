@@ -1,22 +1,21 @@
-import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useContext, useLayoutEffect } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 export default function Dashboard() {
   const router = useRouter()
-  const authContext = React.useContext(AuthContext)
+  const { state } = useContext(AuthContext)
 
-  React.useEffect(() => {
-    // checks if the user is authenticated
-    authContext.isUserAuthenticated() ? router.push('/dashboard') : router.push('/')
+  console.log(state)
+  useLayoutEffect(() => {
+    state?.user ? router.push('/dashboard') : router.push('/')
   }, [])
 
   return (
-    <>
-      <Head>
-        <title>Dashboard</title>
-      </Head>
+    state?.user && (
       <div>
         <h2>Dashboard</h2>
       </div>
-    </>
+    )
   )
 }

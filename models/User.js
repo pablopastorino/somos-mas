@@ -44,6 +44,11 @@ const schema = new mongoose.Schema({
     required: true,
     minlength: 6,
     maxlength: 255
+  },
+  role: {
+    type: String,
+    required: true,
+    default: 'user'
   }
 })
 

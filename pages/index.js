@@ -1,12 +1,16 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
 import MemberCard from '../components/about/MemberCard'
 import TestimonialCard from '../components/testimonials/TestimonialCard'
 import NewCard from '../components/news/NewCard'
-import Link from 'next/link'
+
 import { BsArrowRight } from 'react-icons/bs'
 
 export default function Home({ members, testimonials, news }) {
+  const router = useRouter()
+
   return (
     <>
       <Head>
@@ -17,7 +21,11 @@ export default function Home({ members, testimonials, news }) {
 
       <div className='w-full max-w-6xl my-8 sm:mx-4'>
         <div className='flex flex-wrap px-2 mb-6'>
-          <div className='w-full grid grid-cols-2 md:grid-cols-4 gap-4'>
+          <div
+            className={`w-full grid grid-cols-2 md:grid-cols-4 gap-4 ${
+              router.isFallback ? 'animate-pulse' : ''
+            }`}
+          >
             <div className='col-span-2 md:h-96 flex flex-col justify-center'>
               <h2 className='text-3xl py-2 font-bold'>Hola Bienvenidxs</h2>
               <p className='sm:pr-8'>
@@ -54,7 +62,7 @@ export default function Home({ members, testimonials, news }) {
               Nuestro Staff
             </h2>
             <span className='w-24 flex items-center justify-center hover:justify-between'>
-              <Link href={'/nosotros'}>
+              <Link href={'/about'} as={'/nosotros'}>
                 <a className='mr-1'>Ver todos</a>
               </Link>
               <BsArrowRight />
@@ -76,7 +84,7 @@ export default function Home({ members, testimonials, news }) {
               Testimonios
             </h2>
             <span className='w-24 flex items-center justify-center hover:justify-between'>
-              <Link href={'/testimonios'}>
+              <Link href={'/testimonials'} as={'/testimonios'}>
                 <a className='mr-1'>Ver todos</a>
               </Link>
               <BsArrowRight />
@@ -98,7 +106,7 @@ export default function Home({ members, testimonials, news }) {
               Ultimas Novedades
             </h2>
             <span className='w-24 flex items-center justify-center hover:justify-between'>
-              <Link href={'/novedades'}>
+              <Link href={'/news'} as={'/novedades'}>
                 <a className='mr-1'>Ver todos</a>
               </Link>
               <BsArrowRight />
