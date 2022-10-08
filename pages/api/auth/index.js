@@ -25,7 +25,8 @@ export default async function handler(req, res) {
         const token = createToken({
           firstName: user.firstName,
           lastName: user.lastName,
-          email: user.email
+          email: user.email,
+          role: user.role || 'user'
         })
         res.status(200).json({ success: true, data: token })
       } catch (error) {

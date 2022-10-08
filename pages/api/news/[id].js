@@ -24,12 +24,12 @@ export default async function handler(req, res) {
 
     case 'PUT':
       try {
-        const { error } = New.validate(req.body)
-        if (error)
-          return res.status(422).json({
-            error: { path: error.details[0].path[0], message: error.details[0].message },
-            success: false
-          })
+        // const { error } = New.validate(req.body)
+        // if (error)
+        //   return res.status(422).json({
+        //     error: { path: error.details[0].path[0], message: error.details[0].message },
+        //     success: false
+        //   })
 
         const newDoc = await New.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
         if (!deletedNew) {
           return res.status(400).json({ success: false })
         }
-        res.status(204).json({ success: true, data: {} })
+        res.status(204).end()
       } catch (error) {
         res.status(400).json({ success: false })
       }

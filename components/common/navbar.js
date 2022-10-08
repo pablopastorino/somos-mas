@@ -51,6 +51,19 @@ const Navbar = ({ hidden = true, buttons = true, center = false }) => {
         ))}
         {buttons && (
           <>
+            {user && parseJwt(user).role === 'admin' && (
+              <li className='mx-4 h-12 w-full lg:h-auto flex items-center justify-center hover:bg-yellow-300 lg:hover:bg-white hover:text-2xl lg:hover:text-base lg:hover:border-b-4 lg:hover:border-red-600 transition-all'>
+                <Link href='/backoffice'>
+                  <a
+                    className={`w-full h-full flex items-center justify-center ${
+                      router.pathname === '/backoffice' ? 'font-bold' : ''
+                    }`}
+                  >
+                    Backoffice
+                  </a>
+                </Link>
+              </li>
+            )}
             <li className='h-12 w-full lg:h-auto flex items-center'>
               {user ? (
                 <Link href='profile' as='perfil'>

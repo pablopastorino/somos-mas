@@ -34,7 +34,7 @@ export default function Contact() {
       body: JSON.stringify(data)
     })
     const contact = await response.json()
-    console.log(contact)
+
     reset()
   }
 
