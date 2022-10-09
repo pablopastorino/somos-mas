@@ -18,9 +18,9 @@ const Footer = () => {
   const router = useRouter()
 
   return (
-    <footer className='flex flex-col justify-between bg-zinc-400'>
+    <footer className='flex flex-col justify-between bg-slate-200'>
       <div className='h-14 border-b-4 border-black flex justify-center items-center'>
-        <div className='relative top-1/2 bg-zinc-400 px-10'>
+        <div className='relative top-1/2 px-10 bg-slate-200'>
           <Logo />
         </div>
       </div>
@@ -41,9 +41,9 @@ const Footer = () => {
         </div>
         <div className='h-20 text-lg text-center flex items-center justify-center'>
           <span className='font-bold block sm:inline-block'>
-            {new Date().getFullYear()} by Alkemy.{' '}
+            {new Date().getFullYear()} by Alkemy.
           </span>
-          <span className='block sm:inline-block'>All rights reserved.</span>
+          <span className='block sm:inline-block ml-1'>All rights reserved.</span>
         </div>
       </div>
     </footer>

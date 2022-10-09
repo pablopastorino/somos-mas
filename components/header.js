@@ -13,7 +13,7 @@ export default function Header() {
   }, [windowSize])
 
   return (
-    <header className='flex items-center justify-between px-4 w-full shadow-lg'>
+    <header className='flex items-center justify-between px-4 pl-6 w-full shadow-lg bg-white'>
       <Logo />
       <MenuButton onClick={() => setHidden(!hidden)} />
       <Navbar hidden={windowSize.width < 1024 && hidden} />

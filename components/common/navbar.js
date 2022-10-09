@@ -67,7 +67,7 @@ const Navbar = ({ hidden = true, buttons = true, center = false }) => {
             <li className='h-12 w-full lg:h-auto flex items-center'>
               {user ? (
                 <Link href='profile' as='perfil'>
-                  <a className='w-full h-full flex items-center justify-center mx-4 lg:rounded-full lg:mx-2 lg:px-4 lg:py-2 lg:border hover:bg-yellow-300 lg:hover:bg-white lg:hover:text-indigo-400 hover:text-2xl lg:hover:text-base transition-all lg:bg-indigo-400 lg:text-white lg:font-semibold lg:whitespace-nowrap'>
+                  <a className='w-full h-full flex items-center justify-center mx-4 lg:rounded-full lg:mx-2 lg:px-4 lg:py-2 lg:border hover:bg-yellow-300 lg:hover:bg-white lg:hover:text-blue-500 hover:text-2xl lg:hover:text-base transition-all lg:bg-blue-500 lg:text-white lg:font-semibold lg:whitespace-nowrap'>
                     {parseJwt(user).firstName}
                   </a>
                 </Link>

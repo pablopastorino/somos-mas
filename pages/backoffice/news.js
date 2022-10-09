@@ -49,7 +49,7 @@ const News = ({ news }) => {
             </div>
             <span
               onClick={() => setModal(true)}
-              className='button ml-auto absolute right-6 top-6 rounded bg-indigo-400 px-4 py-2 cursor-pointer hover:bg-indigo-700 text-white'
+              className='button ml-auto absolute right-6 top-6 rounded bg-blue-500 px-4 py-2 cursor-pointer hover:bg-blue-700 text-white'
             >
               Agregar
             </span>

@@ -1,6 +1,9 @@
+import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { AuthContext } from '../context/AuthContext'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import Link from 'next/link'
 
 const schema = yup
   .object()
@@ -18,6 +21,12 @@ const schema = yup
   .required()
 
 export default function Contact() {
+  const { user } = useContext(AuthContext)
+
+  const parseJwt = token => {
+    return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())
+  }
+
   const {
     register,
     reset,
@@ -26,6 +35,17 @@ export default function Contact() {
   } = useForm({
     resolver: yupResolver(schema)
   })
+
+  useEffect(() => {
+    let parsedUser
+    if (user) parsedUser = parseJwt(user)
+
+    reset({
+      name: `${parsedUser?.firstName} ${parsedUser?.lastName}` || '',
+      email: parsedUser?.email || ''
+    })
+  }, [reset, user])
+
   const onSubmit = async data => {
     const response = await fetch('/api/contacts', {
       method: 'POST',
@@ -56,7 +76,9 @@ export default function Contact() {
             Nombre y Apellido
           </label>
           <input
-            className='appearance-none block w-full  text-gray-900 border border-gray-200 rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+            className={`${
+              errors.name ? 'border-red-400' : 'border-gray-200'
+            } appearance-none block w-full  text-gray-900 border rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
             id='grid-name'
             type='name'
             {...register('name')}
@@ -73,7 +95,9 @@ export default function Contact() {
             Email
           </label>
           <input
-            className='appearance-none block w-full  text-gray-900 border border-gray-200 rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+            className={`${
+              errors.email ? 'border-red-400' : 'border-gray-200'
+            } appearance-none block w-full  text-gray-900 border rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
             id='grid-email'
             type='text'
             {...register('email')}
@@ -91,7 +115,10 @@ export default function Contact() {
           </label>
           <textarea
             rows={5}
-            className='resize-y block w-full  text-gray-900 border border-gray-200 rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+            autoFocus={user ? true : false}
+            className={`${
+              errors.message ? 'border-red-400' : 'border-gray-200'
+            } appearance-none resize-y block w-full  text-gray-900 border rounded-lg py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
             id='grid-message'
             {...register('message')}
           />
@@ -107,12 +134,14 @@ export default function Contact() {
         </button>
       </div>
       <div className='flex items-center'>
-        <button
-          className='shadow focus:shadow-outline focus:outline-none font-medium py-2 px-4 rounded-full'
-          type='submit'
-        >
-          Ir al inicio
-        </button>
+        <Link href={'/'}>
+          <a
+            className='shadow focus:shadow-outline focus:outline-none font-medium py-2 px-4 rounded-full'
+            type='submit'
+          >
+            Ir al inicio
+          </a>
+        </Link>
       </div>
     </form>
   )
