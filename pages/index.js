@@ -29,14 +29,12 @@ export default function Home({ members, testimonials, news }) {
             <div className='col-span-2 md:h-96 flex flex-col justify-center'>
               <h2 className='text-3xl py-2 font-bold'>Hola Bienvenidxs</h2>
               <p className='sm:pr-8'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sit et molestias
-                consectetur perferendis voluptates corporis. Impedit soluta porro corporis accusamus
-                ullam dolorum, illo quod eveniet, nulla unde ex aliquam. Molestiae, possimus velit
-                aliquam voluptas officiis excepturi ullam expedita? Quo magni incidunt fugiat nisi
-                sed vero, iusto blanditiis praesentium. Veritatis itaque unde minus nesciunt
-                distinctio illum commodi soluta rem eius eligendi. Vero voluptas, ipsam sunt sed eos
-                maiores odio dolore accusamus fugit officia porro, omnis quisquam! Non debitis dicta
-                soluta.
+                Desde 1997 trabajamos con los chicos, chicas, mamás, papás, abuelos y vecinos del
+                barrio La Cava. Gracias a la unión de las manos de todas las familias, del barrio y
+                las que viven fuera de él, es que podemos pensar, crear y garantizar los procesos de
+                inserción y crecimiento social. Hoy somos un centro comunitario que acompaña a más
+                de 700 personas a través de las áreas de: educación, deportes, primera infancia,
+                salud, alimentación y trabajo social.
               </p>
               <div className='flex items-center py-4'>
                 <button

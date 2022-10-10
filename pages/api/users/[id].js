@@ -1,5 +1,6 @@
 import dbConnect from '../../../lib/mongodb'
 import User from '../../../models/User'
+import { createToken } from '../../../utils/token'
 
 export default async function handler(req, res) {
   const {
@@ -24,13 +25,6 @@ export default async function handler(req, res) {
 
     case 'PUT':
       try {
-        // const { error } = User.validate(req.body)
-        // if (error)
-        //   return res.status(422).json({
-        //     error: { path: error.details[0].path[0], message: error.details[0].message },
-        //     success: false
-        //   })
-
         const user = await User.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
@@ -38,7 +32,9 @@ export default async function handler(req, res) {
         if (!user) {
           return res.status(404).json({ success: false })
         }
-        res.status(200).json({ success: true, data: user })
+
+        const token = createToken({ ...user._doc, password: '' })
+        res.status(200).json({ success: true, data: token })
       } catch (error) {
         res.status(400).json({ success: false })
       }
@@ -50,7 +46,7 @@ export default async function handler(req, res) {
         if (!user) {
           return res.status(400).json({ success: false })
         }
-        res.status(204).json({ success: true, data: {} })
+        res.status(204).end()
       } catch (error) {
         res.status(400).json({ success: false })
       }

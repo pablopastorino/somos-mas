@@ -11,11 +11,14 @@ import { uploadFile } from '../../utils/S3'
 const schema = yup
   .object()
   .shape({
-    name: yup
+    firstName: yup
       .string('Formato inválido')
       .required('Campo obligatorio')
       .min(2, 'Longitud insuficiente'),
-
+    lastName: yup
+      .string('Formato inválido')
+      .required('Campo obligatorio')
+      .min(2, 'Longitud insuficiente'),
     image: yup
       .mixed()
       .nullable()
@@ -32,7 +35,6 @@ const schema = yup
           value ||
           (value && ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'].includes(value.type))
       ),
-
     content: yup
       .string('Formato inválido')
       .required('Campo obligatorio')
@@ -40,7 +42,7 @@ const schema = yup
   })
   .required()
 
-const NewsModal = ({ hidden, setModal, values, setValues }) => {
+const TestimonialsModal = ({ hidden, setModal, values, setValues }) => {
   const router = useRouter()
   const { user } = useContext(AuthContext)
   const [loading, setLoading] = useState(false)
@@ -69,7 +71,12 @@ const NewsModal = ({ hidden, setModal, values, setValues }) => {
   }, [touchedFields, isDirty])
 
   useEffect(() => {
-    reset({ name: values.name || '', content: values.content || '', image: values.image || '' })
+    reset({
+      firstName: values.firstName || '',
+      lastName: values.firstName || '',
+      content: values.content || '',
+      image: values.image || ''
+    })
   }, [reset, values])
 
   const handleClose = () => {
@@ -78,10 +85,9 @@ const NewsModal = ({ hidden, setModal, values, setValues }) => {
   }
 
   const onSubmit = async data => {
-    console.log('Inside')
     setLoading(true)
 
-    const isUpdate = new Boolean(Object.keys(values).length)
+    const isUpdate = !!Object.keys(values).length
     const uploadedImage = typeof data.image === 'object'
 
     if (uploadedImage) {
@@ -91,7 +97,7 @@ const NewsModal = ({ hidden, setModal, values, setValues }) => {
       data.image = Location
     }
 
-    const response = await fetch(`/api/news/${isUpdate ? values._id : ''}`, {
+    const response = await fetch(`/api/testimonials/${isUpdate ? values._id : ''}`, {
       method: isUpdate ? 'PUT' : 'POST',
       mode: 'cors',
       headers: { 'Content-Type': 'application/json' },
@@ -101,7 +107,7 @@ const NewsModal = ({ hidden, setModal, values, setValues }) => {
     const { success } = await response.json()
     if (success) {
       setModal(false)
-      router.push('/backoffice/news', '/backoffice/novedades')
+      router.push('/backoffice/testimonials', '/backoffice/testimonios')
     } else {
       toast.error('Credenciales inválidas')
     }
@@ -130,7 +136,7 @@ const NewsModal = ({ hidden, setModal, values, setValues }) => {
           <form className='relative bg-white rounded-lg shadow' onSubmit={handleSubmit(onSubmit)}>
             {/* Modal Header */}
             <div className='flex justify-between items-start p-4 rounded-t border-b'>
-              <h3 className='text-xl font-semibold text-gray-900'>Novedad</h3>
+              <h3 className='text-xl font-semibold text-gray-900'>Testimonio</h3>
               <button
                 type='button'
                 className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center  dark:hover:text-white'
@@ -155,19 +161,40 @@ const NewsModal = ({ hidden, setModal, values, setValues }) => {
             <div className='p-6 space-y-6'>
               <div className='grid grid-cols-6 gap-6'>
                 <div className='col-span-6 sm:col-span-3'>
-                  <label htmlFor='name' className='block mb-2 text-sm font-medium text-gray-900'>
-                    Titulo
+                  <label
+                    htmlFor='firstName'
+                    className='block mb-2 text-sm font-medium text-gray-900'
+                  >
+                    Nombre
                   </label>
                   <input
                     type='text'
-                    name='name'
-                    id='name'
+                    name='firstName'
+                    id='firstName'
                     className={`shadow-sm bg-gray-50 border ${
-                      errors.name?.message ? 'border-red-600' : 'border-gray-300'
+                      errors.firstName?.message ? 'border-red-600' : 'border-gray-300'
                     } text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5`}
-                    {...register('name')}
+                    {...register('firstName')}
                   />
-                  <p className='text-red-500 text-sm mt-1'>{errors.name?.message}</p>
+                  <p className='text-red-500 text-sm mt-1'>{errors.firstName?.message}</p>
+                </div>
+                <div className='col-span-6 sm:col-span-3'>
+                  <label
+                    htmlFor='lastName'
+                    className='block mb-2 text-sm font-medium text-gray-900'
+                  >
+                    Apellido
+                  </label>
+                  <input
+                    type='text'
+                    name='lastName'
+                    id='lastName'
+                    className={`shadow-sm bg-gray-50 border ${
+                      errors.lastName?.message ? 'border-red-600' : 'border-gray-300'
+                    } text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5`}
+                    {...register('lastName')}
+                  />
+                  <p className='text-red-500 text-sm mt-1'>{errors.lastName?.message}</p>
                 </div>
                 <div className='col-span-6 sm:col-span-3'>
                   <label htmlFor='image' className='block mb-2 text-sm font-medium text-gray-900'>
@@ -240,4 +267,4 @@ const NewsModal = ({ hidden, setModal, values, setValues }) => {
   )
 }
 
-export default NewsModal
+export default TestimonialsModal

@@ -20,12 +20,7 @@ export default async function handler(req, res) {
     case 'POST':
       try {
         const user = await User.create({ ...req.body, password: createHash(req.body.password) })
-        const token = createToken({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          emai: user.email,
-          role: user.role || 'user'
-        })
+        const token = createToken({ ...user._doc, password: '' })
         res.status(201).json({ success: true, data: token })
       } catch (error) {
         res.status(400).json({ success: false, error })

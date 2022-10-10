@@ -23,10 +23,8 @@ export default async function handler(req, res) {
           return res.status(400).json({ success: false, message: 'Invalid credentials' })
 
         const token = createToken({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          role: user.role || 'user'
+          ...user._doc,
+          password: ''
         })
         res.status(200).json({ success: true, data: token })
       } catch (error) {

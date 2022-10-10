@@ -5,7 +5,6 @@ const schema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    lowercase: true,
     trim: true,
     minLength: [2, 'Mínimo 2 caracteres']
   },
